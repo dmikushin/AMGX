@@ -34,7 +34,7 @@ struct isDiagonal
     __host__ __device__
     bool operator()(tuple_t IJ)
     {
-        return ( IJ.get<0>() == IJ.get<1>() );
+        return ( thrust::get<0>(IJ) == thrust::get<1>(IJ) );
     }
 
 };
