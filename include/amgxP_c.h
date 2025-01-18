@@ -16,7 +16,7 @@
 #endif
 #endif
 #else
-#define AMGX_API __attribute__((visibility ("default")))
+#define AMGX_API __attribute__((visibility ("hidden")))
 #endif
 
 #if defined(__cplusplus)

@@ -193,21 +193,16 @@ GET_FILENAME_COMPONENT(CMAKE_C_COMPILER_NAME "${CMAKE_C_COMPILER}" NAME)
 IF(CMAKE_C_COMPILER_NAME MATCHES cl AND NOT CMAKE_C_COMPILER_NAME MATCHES clang)
     set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS})
 ELSE(CMAKE_C_COMPILER_NAME MATCHES cl AND NOT CMAKE_C_COMPILER_NAME MATCHES clang)
-    set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} -rdynamic -fPIC -fvisibility=default)
+    set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} -fPIC -fvisibility=hidden)
 ENDIF(CMAKE_C_COMPILER_NAME MATCHES cl AND NOT CMAKE_C_COMPILER_NAME MATCHES clang)
 
 # VS: include object files in target property SOURCES
 # otherwise a workaround for extracting ${obj_all} is necessary below
 set(CUDA_ATTACH_VS_BUILD_RULE_TO_CUDA_FILE OFF)
 
-#if compiling against CUDA Toolkit 12.x +
 IF(CMAKE_CUDA_COMPILER_VERSION VERSION_GREATER_EQUAL 12.0.0)
 
-  SET(CUDA_ALLOW_ARCH "70;80;90")
-
-ELSEIF(CMAKE_CUDA_COMPILER_VERSION VERSION_GREATER_EQUAL 11.0.0)
-
-  SET(CUDA_ALLOW_ARCH "70;80")
+  SET(CUDA_ALLOW_ARCH "80;90")
 
 ELSE()
 
@@ -222,7 +217,7 @@ if(DEFINED CUDA_ARCH)
         message(STATUS "Checking if arch " ${ARCH} " is supported...")
         IF(NOT ${ARCH} IN_LIST CUDA_ALLOW_ARCH)
             message(STATUS
-                "Chosen CUDA_ARCH ${ARCH} not expected for current CUDA version. " 
+                "Chosen CUDA_ARCH ${ARCH} not expected for current CUDA version. "
                 "Please choose one or more of ${CUDA_ALLOW_ARCH}.")
         ENDIF()
     ENDFOREACH()

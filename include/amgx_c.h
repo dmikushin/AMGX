@@ -19,7 +19,7 @@
 #endif //AMGX_API_NO_IMPORTS
 #endif //AMGX_API_EXPORTS
 #else
-#define AMGX_API __attribute__((visibility ("default")))
+#define AMGX_API __attribute__((visibility ("hidden")))
 #endif //_WIN32
 #endif //SWIG (swig doesn't seem to work with __declspec/__attribute__)
 
